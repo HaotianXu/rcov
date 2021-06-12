@@ -13,62 +13,39 @@
 
 <!-- [![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/grand-total/simts)](http://www.r-pkg.org/pkg/simts) -->
 
-<!-- [![Last-changedate](https://img.shields.io/badge/last%20change-2021--06--11-green.svg)](https://github.com/SMAC-Group/simts) -->
+<!-- [![Last-changedate](https://img.shields.io/badge/last%20change-2021--06--12-green.svg)](https://github.com/SMAC-Group/simts) -->
 
 # `rcov` Overview
 
-The Time Series Tools (`rcov`) R package provides a series of tools to
-simulate, plot, estimate, select and forecast different time series
-models. Its original purpose was to be a support to the online textbook
-[“Applied Time Series Analysis with
-R”](https://smac-group.github.io/ts/) but can obviously be used for
-time series analysis in general. More specifically, the package provides
-tools with the following features:
+The robust autocovariance matrix estimation (`rcov`) R package provides
+a series of tools to obtain the robust autocovariance matrix estimators.
+Its original purpose was to be a support to the paper \[“Nonasymptotic
+theories for tail-robust autocovariance matrix estimation methods”\] but
+can obviously be used for time series analysis in general. More
+specifically, the package provides tools with the following features:
 
-  - Simulation of time series from SARIMA models to various state-space
-    models that can be expressed as latent time series processes.
-  - Visualization of time series data with user specifications.
-  - Specific simulation and visualization tools for latent time series
-    models.
-  - Easy-to-use functions to estimate and infer on the parameters of
-    time series models through different methods (standard and robust).
-  - Diagnostic and statistical tools to assess goodness of fit and
-    select the best model for the data.
-  - Estimating and plotting tools to deliver point forecasts and
-    confidence intervals.
-
-To understand the usage of the `rcov` package, please refer to the
-“Vignettes” tab above.
+  - Simulation of multivariate stationary time series from linear
+    process model and VAR(1) model.
+  - Robust estimation of mean vectors for high-dimensional stationary
+    time series.
+  - Robust estimation of autocovariance matrices for high-dimensional
+    stationary time series.
+  - Robustification parameter selection based on the block-wise
+    cross-validation.
 
 ## Install Instructions
 
 ## Installation
 
-The `simts` package is available on both CRAN and GitHub. The CRAN
-version is considered stable while the GitHub version is subject to
-modifications/updates which may lead to installation problems or broken
-functions. You can install the stable version of the `simts` package
-with:
-
-``` r
-install.packages("simts")
-```
-
-For users who are interested in having the latest developments, the
-GitHub version is ideal although more dependencies are required to run a
-stable version of the package. Most importantly, users **must** have a
-(C++) compiler installed on their machine that is compatible with R
-(e.g. Clang).
+The `rcov` package is available on GitHub. You can install the stable
+version of the `rcov` package with:
 
 ``` r
 # Install dependencies
 install.packages(c("RcppArmadillo","devtools","knitr","rmarkdown"))
 
-# Install the package from GitHub without Vignettes/User Guides
-devtools::install_github("SMAC-Group/simts")
-
-# Install the package with Vignettes/User Guides 
-devtools::install_github("SMAC-Group/simts", build_vignettes = TRUE)
+# Install the package from GitHub
+devtools::install_github("HaotianXu/rcov")
 ```
 
 *The setup to obtain the development version of `rcov` is platform
