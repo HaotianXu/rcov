@@ -1,6 +1,6 @@
 Package: rcov
 Type: Package
-Title: TO COMPLETE
+Title: Robust Autocovariance Matrix Estimation
 Version: 0.1.0
 Authors@R: c(
     person("Haotian", "Xu", email = "Haotian.Xu@unige.ch", role = c("aut","cre")),
@@ -8,7 +8,7 @@ Authors@R: c(
     person("Yuan", "Ke", role = "aut")
     )
 Maintainer: Haotian Xu <Haotian.Xu@unige.ch>
-Description: A system contains easy-to-use tools as ....
+Description: A system contains easy-to-use tools for robust autocovariance matrix estimation.
 Depends:
     R (>= 3.5.0)
 Imports:
@@ -25,5 +25,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL: https://github.com/stephaneguerrier/rcov
-BugReports: https://github.com/stephaneguerrier/stephaneguerrier/rcov
+URL: https://github.com/HaotianXu/rcov
+BugReports: https://github.com/HaotianXu/rcov

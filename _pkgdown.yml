@@ -7,17 +7,20 @@ reference:
     contents:
     - trunc_mean
     - huber_mean
-    - MoM_mean2
+    - MoM_mean
   - title: Covariance matrix estimation
     contents:
+    - elem_autocov
     - spec_trunc_autocov
-    - block_cv
-    - optim.tuning2
-    - spec_block_cv
-  - title: Simulation
+  - title: Robustification parameter selection based on the block-wise CV
     contents:
-
+    - optim.tuning
+    - spec_block_cv
+  - title: Time series simulation
+    contents:
+  - linear_simu
+  - VAR1_simu
 navbar:
   right:
   - icon: fa-github
-    href: https://github.com/stephaneguerrier/rcov
+    href: https://github.com/HaotianXu/rcov
