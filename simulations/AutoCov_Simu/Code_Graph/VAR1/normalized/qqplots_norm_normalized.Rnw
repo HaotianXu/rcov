@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage,psfixbb]{preview}
+\PreviewEnvironment{pgfpicture}
+\setlength\PreviewBorder{0pt}
+\usepackage{amssymb}
+%\definecolor{mygreen}{HTML}{16AF11}
+%\definecolor{myred}{HTML}{F16A57}
+%\definecolor{myblue}{HTML}{0A71BD}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+<<graph1n>>=
+library(tikzDevice)
+options(tikzMetricPackages = c("\\usepackage[utf8]{inputenc}",
+    "\\usepackage[T1]{fontenc}", "\\usetikzlibrary{calc}",
+    "\\usepackage{amssymb}", "\\usepackage{amsfonts}", "\\usepackage{nicefrac}"))
+
+tikz("qqplot_normal.tex", width = 6.5, height = 6,
+     packages = c("\\usepackage{tikz}",
+                 "\\usepackage[active,tightpage,psfixbb]{preview}",
+                 "\\PreviewEnvironment{pgfpicture}",
+                 "\\setlength\\PreviewBorder{0pt}",
+                 "\\usepackage{amssymb}",
+                 "\\usepackage{amsfonts}",
+                 "\\usepackage{nicefrac}"))
+
+
+load("/Users/xuh/Desktop/AutoCov_simu/VAR1/simu_mean_var1_normalized.RData")
+
+col_line = "red3"
+base_col = "grey30"
+percent = 80
+rgb.val = col2rgb(base_col)
+transp_col = rgb(rgb.val[1], rgb.val[2], rgb.val[3],
+             max = 255,
+             alpha = (100 - percent) * 255 / 100)
+range_x = c(1, 5)
+range_y = c(1, 5)
+
+par(mfrow = c(3,3), oma = c(5,7.5,3.5,0) + 0.1, mar = c(0,0,0.25,0.25) + 0.1)
+
+# Normal
+qqplot(sqrt(100)*results[,5,1,1,1], GA.results[,1,1],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+grid()
+axis(2, cex.axis = 1.25)
+abline(a = 0, b = 1, col = col_line)
+mtext("Ele.T Error Quantiles", side = 2, line = 3)
+mtext("p = 50", side = 2, line = 5.5, cex = 1.25)
+mtext("Diagonal", side = 3, line = 1, cex = 1.25)
+
+qqplot(sqrt(100)*results[,5,1,1,2], GA.results[,1,2],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+grid()
+abline(a = 0, b = 1, col = col_line)
+mtext("Equal Correlation", side = 3, line = 1, cex = 1.25)
+
+qqplot(sqrt(100)*results[,5,1,1,3], GA.results[,1,3],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+grid()
+abline(a = 0, b = 1, col = col_line)
+mtext("Power Decay", side = 3, line = 1, cex = 1.25)
+
+qqplot(sqrt(100)*results[,5,2,1,1], GA.results[,2,1],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+grid()
+axis(2, cex.axis = 1.25)
+mtext("Ele.T Error Quantiles", side = 2, line = 3)
+abline(a = 0, b = 1, col = col_line)
+mtext("p = 75", side = 2, line = 5.5, cex = 1.25)
+
+qqplot(sqrt(100)*results[,5,2,1,2], GA.results[,2,2],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+grid()
+
+abline(a = 0, b = 1, col = col_line)
+
+qqplot(sqrt(100)*results[,5,2,1,3], GA.results[,2,3],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+grid()
+abline(a = 0, b = 1, col = col_line)
+
+qqplot(sqrt(100)*results[,5,3,1,1], GA.results[,3,1],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+axis(2, cex.axis = 1.25)
+axis(1, cex.axis = 1.25)
+grid()
+abline(a = 0, b = 1, col = col_line)
+mtext("GA Quantiles", side = 1, line = 3.5)
+mtext("Ele.T Error Quantiles", side = 2, line = 3)
+mtext("p = 100", side = 2, line = 5.5, cex = 1.25)
+
+qqplot(sqrt(100)*results[,5,3,1,2], GA.results[,3,2],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+axis(1, cex.axis = 1.25)
+grid()
+abline(a = 0, b = 1, col = col_line)
+mtext("GA Quantiles", side = 1, line = 3.5)
+
+qqplot(sqrt(100)*results[,5,3,1,3], GA.results[,3,3],
+       xlab = "GA Quantiles", ylab = "Ele.T Error Quantiles",
+       main = "p = 50, Diagonal", axes = FALSE, ann = FALSE, pch = 16, col = transp_col, cex = 1.25,
+       xlim = range_x, ylim = range_y)
+box()
+axis(1, cex.axis = 1.25)
+grid()
+abline(a = 0, b = 1, col = col_line)
+mtext("GA Quantiles", side = 1, line = 3.5)
+
+
+dev.off()
+@
+
+\begin{figure}
+\input{qqplot_normal.tex}
+\end{figure}
+
+\end{document}

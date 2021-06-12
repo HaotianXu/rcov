@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage,psfixbb]{preview}
+\PreviewEnvironment{pgfpicture}
+\setlength\PreviewBorder{0pt}
+\usepackage{amssymb}
+%\definecolor{mygreen}{HTML}{16AF11}
+%\definecolor{myred}{HTML}{F16A57}
+%\definecolor{myblue}{HTML}{0A71BD}
+\usepackage{Sweave}
+\begin{document}
+\input{test-concordance}
+
+\begin{Schunk}
+\begin{Sinput}
+> library(tikzDevice)
+> options(tikzMetricPackages = c("\\usepackage[utf8]{inputenc}",
++     "\\usepackage[T1]{fontenc}", "\\usetikzlibrary{calc}",
++     "\\usepackage{amssymb}", "\\usepackage{amsfonts}", "\\usepackage{nicefrac}"))
+> tikz("test_fig.tex", width = 8.85, height = 4.5,
++      packages = c("\\usepackage{tikz}",
++                  "\\usepackage[active,tightpage,psfixbb]{preview}",
++                  "\\PreviewEnvironment{pgfpicture}",
++                  "\\setlength\\PreviewBorder{0pt}",
++                  "\\usepackage{amssymb}",
++                  "\\usepackage{amsfonts}",
++                  "\\usepackage{nicefrac}"))
+> load("/Users/stephaneguerrier/Documents/GitHub/rcov/simulations/AutoCov_Simu/Data_VAR1_n50/VAR1_n50_lag0_rel.rda")

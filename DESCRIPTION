@@ -1,0 +1,29 @@
+Package: rcov
+Type: Package
+Title: TO COMPLETE
+Version: 0.1.0
+Authors@R: c(
+    person("Haotian", "Xu", email = "Haotian.Xu@unige.ch", role = c("aut","cre")),
+    person("Stéphane", "Guerrier", role = "aut"),
+    person("Yuan", "Ke", role = "aut")
+    )
+Maintainer: Haotian Xu <Haotian.Xu@unige.ch>
+Description: A system contains easy-to-use tools as ....
+Depends:
+    R (>= 3.5.0)
+Imports:
+    expm,
+    extraDistr,
+    Matrix,
+    Rcpp, 
+    RcppArmadillo
+LinkingTo: Rcpp, RcppArmadillo
+License: AGPL-3
+RoxygenNote: 7.1.1
+Encoding: UTF-8
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/stephaneguerrier/rcov
+BugReports: https://github.com/stephaneguerrier/stephaneguerrier/rcov

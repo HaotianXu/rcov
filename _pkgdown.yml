@@ -1,0 +1,23 @@
+template:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: Mean estimation
+    contents:
+    - trunc_mean
+    - huber_mean
+    - MoM_mean2
+  - title: Covariance matrix estimation
+    contents:
+    - spec_trunc_autocov
+    - block_cv
+    - optim.tuning2
+    - spec_block_cv
+  - title: Simulation
+    contents:
+
+navbar:
+  right:
+  - icon: fa-github
+    href: https://github.com/stephaneguerrier/rcov
