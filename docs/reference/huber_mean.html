@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,8 +90,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephaneguerrier/rcov">
-    <span class="fa fa-github"></span>
+  <a href="https://github.com/HaotianXu/rcov">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Element-wise adaptive Huber mean estimator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/stephaneguerrier/stephaneguerrier/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HaotianXu/rcov/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
     <div class="hidden name"><code>huber_mean.Rd</code></div>
     </div>
 
@@ -117,7 +117,7 @@
     <p>Computes the element-wise adaptive Huber mean estimator</p>
     </div>
 
-    <pre class="usage"><span class='fu'>huber_mean</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tau</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>huber_mean</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>tau</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -128,13 +128,17 @@
     </tr>
     <tr>
       <th>tau</th>
-      <td><p>A <code>numeric</code> scalar corresponding to the truncation parameter (larger than 0)</p></td>
+      <td><p>A <code>numeric</code> scalar corresponding to the robustification parameter (larger than 0).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>numeric</code> corresponding to the adaptive Huber mean estimator.</p>
+    <p>A <code>numeric</code> scalar corresponding to the adaptive Huber mean estimator.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Haotian Xu</p>

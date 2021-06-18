@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,8 +90,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephaneguerrier/rcov">
-    <span class="fa fa-github"></span>
+  <a href="https://github.com/HaotianXu/rcov">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -109,7 +109,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Simulating VAR1 model with different error distributions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/stephaneguerrier/stephaneguerrier/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/HaotianXu/rcov/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
     <div class="hidden name"><code>VAR1_simu.Rd</code></div>
     </div>
 
@@ -117,7 +117,7 @@
     <p>Simulate a p dimensional VAR1 model with length n. The setting follows Ke et.al.(2019)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>VAR1_simu</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mu</span>, skip <span class='op'>=</span> <span class='fl'>300</span>, <span class='va'>Sigma.mat</span>, <span class='va'>rho</span>, err.dist <span class='op'>=</span> <span class='st'>"t3"</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>VAR1_simu</span><span class='op'>(</span><span class='va'>n</span>, <span class='va'>mu</span>, skip <span class='op'>=</span> <span class='fl'>300</span>, <span class='va'>Sigma.mat</span>, <span class='va'>rho</span>, err.dist <span class='op'>=</span> <span class='st'>"t3"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +143,10 @@
       <td><p>A scalar in (0,1) indicating the decay rate of the transition matrix for lag-k term as the k grows.</p></td>
     </tr>
     <tr>
+      <th>err.dist</th>
+      <td><p>A <code>character</code> string, such as "normal", "pareto", "lognorm" or "t4", indicating the distribution of innovations.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Additional arguments.</p></td>
     </tr>
@@ -150,19 +154,19 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A p x n matrix</p>
+    <p>A p x n matrix corresponding to the simulated data</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Haotian Xu</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>n</span> <span class='op'>=</span> <span class='fl'>100</span>
-<span class='va'>p</span> <span class='op'>=</span> <span class='fl'>100</span>
+<span class='va'>p</span> <span class='op'>=</span> <span class='fl'>50</span>
 <span class='va'>Sigma</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>p</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>123</span><span class='op'>)</span>
 <span class='va'>X</span> <span class='op'>=</span> <span class='fu'>VAR1_simu</span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>p</span><span class='op'>)</span>, skip <span class='op'>=</span> <span class='fl'>300</span>, Sigma.mat <span class='op'>=</span> <span class='va'>Sigma</span>, rho <span class='op'>=</span> <span class='fl'>0.7</span>, err.dist <span class='op'>=</span> <span class='st'>"pareto"</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 100 100</div><div class='input'>
+</div><div class='output co'>#&gt; [1]  50 100</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Block cross-validation to select the spectrum-wise truncation parameter tau for autocovariance — spec_block_cv • rcov</title>
+<title>Block-wise cross-validation to select the spectrum-wise robustification parameter tau for autocovariance — spec_block_cv • rcov</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Block cross-validation to select the spectrum-wise truncation parameter tau for autocovariance — spec_block_cv" />
-<meta property="og:description" content="TO COMPLETE" />
+<meta property="og:title" content="Block-wise cross-validation to select the spectrum-wise robustification parameter tau for autocovariance — spec_block_cv" />
+<meta property="og:description" content="As the title" />
 
 
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,8 +90,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephaneguerrier/rcov">
-    <span class="fa fa-github"></span>
+  <a href="https://github.com/HaotianXu/rcov">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -108,16 +108,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Block cross-validation to select the spectrum-wise truncation parameter tau for autocovariance</h1>
-    <small class="dont-index">Source: <a href='https://github.com/stephaneguerrier/stephaneguerrier/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
+    <h1>Block-wise cross-validation to select the spectrum-wise robustification parameter tau for autocovariance</h1>
+    <small class="dont-index">Source: <a href='https://github.com/HaotianXu/rcov/blob/master/R/mean.R'><code>R/mean.R</code></a></small>
     <div class="hidden name"><code>spec_block_cv.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>TO COMPLETE</p>
+    <p>As the title</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spec_block_cv</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>S</span>, <span class='va'>h</span>, <span class='va'>lag</span>, <span class='va'>tau_vec</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>spec_block_cv</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>S</span>, <span class='va'>h</span>, <span class='va'>lag</span>, <span class='va'>tau.vec</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,24 +139,42 @@
       <td><p>A strictly non-negative integer corresponding to the lag of the autocovariance.</p></td>
     </tr>
     <tr>
-      <th>tau_vec</th>
-      <td><p>A <code>numeric</code> vector of set of candidates of tuning parameter (positive values).</p></td>
+      <th>tau.vec</th>
+      <td><p>A <code>numeric</code> vector of candidate robustification parameters (positive values).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>list</code> with the structure:</p><ul>
-<li><p>tau.vec    A <code>numeric</code> vector of set of candidates of tuning parameter.</p></li>
-<li><p>err.cv     A <code>numeric</code> vector of cross validation error (in l2 norm), corresponding to tau.vec.</p></li>
-</ul>
-
+    <p>A <code>numeric</code> vector of cross validation errors (in l2 norm), corresponding to the tau.vec.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Haotian Xu and Stephane Guerrier</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='va'>n</span> <span class='op'>=</span> <span class='fl'>100</span>
+<span class='va'>p</span> <span class='op'>=</span> <span class='fl'>50</span>
+<span class='va'>Sigma</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='va'>p</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>123</span><span class='op'>)</span>
+<span class='va'>X</span> <span class='op'>=</span> <span class='fu'><a href='VAR1_simu.html'>VAR1_simu</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='va'>n</span>, mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>p</span><span class='op'>)</span>, skip <span class='op'>=</span> <span class='fl'>300</span>, Sigma.mat <span class='op'>=</span> <span class='va'>Sigma</span>, rho <span class='op'>=</span> <span class='fl'>0.7</span>, err.dist <span class='op'>=</span> <span class='st'>"pareto"</span><span class='op'>)</span>
+<span class='va'>tau.vec</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span>from <span class='op'>=</span> <span class='fl'>10</span>, to <span class='op'>=</span> <span class='fl'>100</span>, length.out <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='fu'>spec_block_cv</span><span class='op'>(</span><span class='va'>X</span>, S <span class='op'>=</span> <span class='fl'>10</span>, h <span class='op'>=</span> <span class='fl'>1</span>, lag <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>tau.vec</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           [,1]
+#&gt;  [1,] 58.67065
+#&gt;  [2,] 58.66713
+#&gt;  [3,] 58.78328
+#&gt;  [4,] 59.01085
+#&gt;  [5,] 59.30613
+#&gt;  [6,] 59.63504
+#&gt;  [7,] 59.94445
+#&gt;  [8,] 60.23879
+#&gt;  [9,] 60.52151
+#&gt; [10,] 60.78827</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -89,8 +89,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/stephaneguerrier/rcov">
-    <span class="fa fa-github"></span>
+  <a href="https://github.com/HaotianXu/rcov">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -133,7 +133,7 @@
       <tr>
         
         <td>
-          <p><code><a href="Trunc_mean.html">trunc_mean()</a></code> </p>
+          <p><code><a href="trunc_mean.html">trunc_mean()</a></code> </p>
         </td>
         <td><p>Element-wise truncated mean estimator</p></td>
       </tr><tr>
@@ -145,9 +145,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="MoM_mean2.html">MoM_mean2()</a></code> </p>
+          <p><code><a href="MoM_mean.html">MoM_mean()</a></code> </p>
         </td>
-        <td><p>Median-of-means estimator (the number of blocks is not necessary be even integer)</p></td>
+        <td><p>Median-of-means estimator</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -164,28 +164,54 @@
       <tr>
         
         <td>
+          <p><code><a href="elem_autocov.html">elem_autocov()</a></code> </p>
+        </td>
+        <td><p>Element-wise tail-robust autocovariance matrix estimator</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="spec_trunc_autocov.html">spec_trunc_autocov()</a></code> </p>
         </td>
         <td><p>Spectrum-wise truncated autocovariance matrix estimator</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-robustification-parameter-selection-based-on-the-block-wise-cv" class="hasAnchor"><a href="#section-robustification-parameter-selection-based-on-the-block-wise-cv" class="anchor"></a>Robustification parameter selection based on the block-wise CV</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
-          <p><code><a href="block_cv.html">block_cv()</a></code> </p>
+          <p><code><a href="optim.tuning.html">optim.tuning()</a></code> </p>
         </td>
-        <td><p>Block cross-validation to select the truncation parameter tau for univariate time series</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="optim.tuning2.html">optim.tuning2()</a></code> </p>
-        </td>
-        <td><p>THIS IS A TEST Selecting the optimal tau for each coordinate of a multivariate time series</p></td>
+        <td><p>Selecting the optimal robustification parameter tau for the element-wise truncated or adaptive Huber estimators</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="spec_block_cv.html">spec_block_cv()</a></code> </p>
         </td>
-        <td><p>Block cross-validation to select the spectrum-wise truncation parameter tau for autocovariance</p></td>
+        <td><p>Block-wise cross-validation to select the spectrum-wise robustification parameter tau for autocovariance</p></td>
       </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-time-series-simulation" class="hasAnchor"><a href="#section-time-series-simulation" class="anchor"></a>Time series simulation</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      
     </tbody>
     </table>
   </div>

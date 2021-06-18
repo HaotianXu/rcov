@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TO COMPLETE • rcov</title>
+<title>Robust Autocovariance Matrix Estimation • rcov</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="TO COMPLETE">
-<meta property="og:description" content="TO COMPLETE">
+<script src="pkgdown.js"></script><meta property="og:title" content="Robust Autocovariance Matrix Estimation">
+<meta property="og:description" content="A system contains easy-to-use tools for robust autocovariance matrix estimation.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -49,8 +49,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/stephaneguerrier/rcov">
-    <span class="fa fa-github"></span>
+  <a href="https://github.com/HaotianXu/rcov">
+    <span class="fas fa-github"></span>
      
   </a>
 </li>
@@ -66,21 +66,16 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
-
 <div id="rcov-overview" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rcov-overview" class="anchor"></a><code>rcov</code> Overview</h1></div>
-<p>The Time Series Tools (<code>simts</code>) R package provides a series of tools to simulate, plot, estimate, select and forecast different time series models. Its original purpose was to be a support to the online textbook <a href="https://smac-group.github.io/ts/">“Applied Time Series Analysis with R”</a> but can obviously be used for time series analysis in general. More specifically, the package provides tools with the following features:</p>
+<p>The robust autocovariance matrix estimation (<code>rcov</code>) R package provides a series of tools to obtain the robust autocovariance matrix estimators. Its original purpose was to be a support to the paper <br><span class="math display">“ <em>N</em><em>o</em><em>n</em><em>a</em><em>s</em><em>y</em><em>m</em><em>p</em><em>t</em><em>o</em><em>t</em><em>i</em><em>c</em><em>t</em><em>h</em><em>e</em><em>o</em><em>r</em><em>i</em><em>e</em><em>s</em><em>f</em><em>o</em><em>r</em><em>t</em><em>a</em><em>i</em><em>l</em> − <em>r</em><em>o</em><em>b</em><em>u</em><em>s</em><em>t</em><em>a</em><em>u</em><em>t</em><em>o</em><em>c</em><em>o</em><em>v</em><em>a</em><em>r</em><em>i</em><em>a</em><em>n</em><em>c</em><em>e</em><em>m</em><em>a</em><em>t</em><em>r</em><em>i</em><em>x</em><em>e</em><em>s</em><em>t</em><em>i</em><em>m</em><em>a</em><em>t</em><em>i</em><em>o</em><em>n</em><em>m</em><em>e</em><em>t</em><em>h</em><em>o</em><em>d</em><em>s</em>”</span><br> but can obviously be used for time series analysis in general. More specifically, the package provides tools with the following features:</p>
 <ul>
-<li>Simulation of time series from SARIMA models to various state-space models that can be expressed as latent time series processes.</li>
-<li>Visualization of time series data with user specifications.</li>
-<li>Specific simulation and visualization tools for latent time series models.</li>
-<li>Easy-to-use functions to estimate and infer on the parameters of time series models through different methods (standard and robust).</li>
-<li>Diagnostic and statistical tools to assess goodness of fit and select the best model for the data.</li>
-<li>Estimating and plotting tools to deliver point forecasts and confidence intervals.</li>
+<li>Simulation of multivariate stationary time series from linear process model and VAR(1) model.</li>
+<li>Robust estimation of mean vectors for high-dimensional stationary time series.</li>
+<li>Robust estimation of autocovariance matrices for high-dimensional stationary time series.</li>
+<li>Robustification parameter selection based on the block-wise cross-validation.</li>
 </ul>
-<p>To understand the usage of the <code>simts</code> package, please refer to the “Vignettes” tab above.</p>
 <div id="install-instructions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install-instructions" class="anchor"></a>Install Instructions</h2>
@@ -88,20 +83,14 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The <code>simts</code> package is available on both CRAN and GitHub. The CRAN version is considered stable while the GitHub version is subject to modifications/updates which may lead to installation problems or broken functions. You can install the stable version of the <code>simts</code> package with:</p>
+<p>The <code>rcov</code> package is available on GitHub. You can install the stable version of the <code>rcov</code> package with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"simts"</span><span class="op">)</span></code></pre></div>
-<p>For users who are interested in having the latest developments, the GitHub version is ideal although more dependencies are required to run a stable version of the package. Most importantly, users <strong>must</strong> have a (C++) compiler installed on their machine that is compatible with R (e.g. Clang).</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Install dependencies</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"RcppArmadillo"</span>,<span class="st">"devtools"</span>,<span class="st">"knitr"</span>,<span class="st">"rmarkdown"</span><span class="op">)</span><span class="op">)</span>
 
-<span class="co"># Install the package from GitHub without Vignettes/User Guides</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"SMAC-Group/simts"</span><span class="op">)</span>
-
-<span class="co"># Install the package with Vignettes/User Guides </span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"SMAC-Group/simts"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><em>The setup to obtain the development version of <code>simts</code> is platform dependent.</em></p>
+<span class="co"># Install the package from GitHub</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"HaotianXu/rcov"</span><span class="op">)</span></code></pre></div>
+<p><em>The setup to obtain the development version of <code>rcov</code> is platform dependent.</em></p>
 </div>
 <div id="license" class="section level2">
 <h2 class="hasAnchor">
@@ -122,16 +111,15 @@
 <!-- ``` -->
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/stephaneguerrier/stephaneguerrier/">https://​github.com/​stephaneguerrier/​stephaneguerrier/​</a>
+<li>Browse source code at <br><a href="https://github.com/HaotianXu/rcov/">https://​github.com/​HaotianXu/​rcov/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/stephaneguerrier/stephaneguerrier/rcov">https://​github.com/​stephaneguerrier/​stephaneguerrier/​rcov</a>
+<li>Report a bug at <br><a href="https://github.com/HaotianXu/rcov">https://​github.com/​HaotianXu/​rcov</a>
 </li>
 </ul>
 </div>
@@ -150,19 +138,7 @@
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://travis-ci.org/SMAC-Group/simts"><img src="https://travis-ci.org/SMAC-Group/simts.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://opensource.org/licenses/AGPL-3.0"><img src="https://img.shields.io/badge/licence-AGPL--3.0-blue.svg" alt="Licence"></a></li>
-<li><a href="https://cran.r-project.org/"><img src="https://img.shields.io/badge/R%3E%3D-3.4.0-6666ff.svg" alt="minimal R version"></a></li>
-<li><a href="https://cran.r-project.org/package=simts"><img src="http://www.r-pkg.org/badges/version/simts" alt="CRAN"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/simts"><img src="http://cranlogs.r-pkg.org/badges/simts" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="http://www.r-pkg.org/pkg/simts"><img src="https://cranlogs.r-pkg.org/badges/grand-total/simts" alt="CRAN RStudio mirror downloads"></a></li>
-<li><a href="https://github.com/SMAC-Group/simts"><img src="https://img.shields.io/badge/last%20change-2021--06--07-green.svg" alt="Last-changedate"></a></li>
-</ul>
-</div>
-</div>
+  </div>
 </div>
 
 
