@@ -172,21 +172,21 @@ linear_simu = function(n, mu, M.list, rho, K = 1001, err.dist = "t3", ...){
   p = dim(M.list[[1]])[1]
   X = matrix(0, nrow = p, ncol = n)
   if(err.dist == "normal"){
-    epsilon.mat = matrix(rnorm((K+n)*p), nrow = p, ncol = K+n-1)
+    epsilon.mat = matrix(rnorm((K+n-1)*p), nrow = p, ncol = K+n-1)
     for(i in 1:n){
       for(k in 1:K){
         X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
       }
     }
   }else if(err.dist == "pareto"){
-    epsilon.mat = matrix(2*(rpareto((K+n)*p, a = 3, b = 1) - 3/2)/sqrt(3) , nrow = p, ncol = K+n-1)
+    epsilon.mat = matrix(2*(rpareto((K+n-1)*p, a = 3, b = 1) - 3/2)/sqrt(3) , nrow = p, ncol = K+n-1)
     for(i in 1:n){
       for(k in 1:K){
         X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
       }
     }
   }else if(err.dist == "lognorm"){
-    epsilon.mat = matrix((exp(rnorm((K+n)*p)) - exp(1/2))/sqrt(exp(2)-exp(1)), nrow = p, ncol = K+n-1)
+    epsilon.mat = matrix((exp(rnorm((K+n-1)*p)) - exp(1/2))/sqrt(exp(2)-exp(1)), nrow = p, ncol = K+n-1)
     for(i in 1:n){
       for(k in 1:K){
         X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
@@ -194,7 +194,7 @@ linear_simu = function(n, mu, M.list, rho, K = 1001, err.dist = "t3", ...){
     }
   }else if(startsWith(err.dist, "t") && as.numeric(substring(err.dist, 2)) > 2){
     df.t = as.numeric(substring(err.dist, 2))
-    epsilon.mat = matrix(rt((K+n)*p, df.t)/sqrt(df.t/(df.t-2)), nrow = p, ncol = K+n-1)
+    epsilon.mat = matrix(rt((K+n-1)*p, df.t)/sqrt(df.t/(df.t-2)), nrow = p, ncol = K+n-1)
     for(i in 1:n){
       for(k in 1:K){
         X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
