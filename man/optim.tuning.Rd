@@ -42,10 +42,13 @@ As the title
 n = 100
 p = 50
 Sigma = diag(1, p)
-set.seed(123)
-X = VAR1_simu(n = n, mu = rep(0, p), skip = 300, Sigma.mat = Sigma, rho = 0.7, err.dist = "pareto")
-optim.tuning(X, S = 10, h = 1, M_est = FALSE, max.tau = 100)
-
+set.seed(12345)
+X = VAR1_simu(n = n, mu = rep(-5, p), skip = 300, Sigma.mat = Sigma, rho = 0.7, err.dist = "pareto")
+cv_result = optim.tuning(X, S = 10, h = 1, M_est = FALSE, max.tau = 100)
+tau_cv = median(cv_result)
+max(abs(apply(X, 1, FUN = function(x){trunc_mean(x, tau_cv)}) - rep(-5,50)))
+max(abs(apply(cbind(cv_result, X), 1, FUN = function(x){trunc_mean(x[-1], x[1])}) - rep(-5,50)))
+max(abs(apply(X, 1, FUN = function(x){mean(x)}) - rep(-5,50)))
 }
 \author{
 Haotian Xu and Stephane Guerrier

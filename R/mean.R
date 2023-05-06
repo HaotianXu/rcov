@@ -144,6 +144,68 @@ spec_trunc_autocov <- function(X, l, tau, ...){
 }
 
 
+#' @title Simulating Linear process model
+#' @description Simulate a p dimensional Linear process model with length n.
+#' @param n         A strictly positive integer corresponding to the length of output series.
+#' @param mu        A \code{numeric} vector of mean of VAR2 model.
+#' @param M.list    A list of p x p matrices, and (rho^(k-1)*M.list[[k]]) be the transition matrix for lag-k term.
+#' @param rho       A scalar in (0,1) indicating the decay rate of the transition matrix for lag-k term as the k grows.
+#' @param K         A strictly positive integer and (K-1) represents the number of lags considered.
+#' @param err.dist  A \code{character} string, such as "normal", "pareto", "lognorm" or "t4", indicating the distribution of innovations.
+#' @param ...       Additional arguments.
+#' @return          A p x n matrix corresponding to the simulated data
+#' @export
+#' @author Haotian Xu
+#' @examples
+#' n = 100
+#' p = 100
+#' K = 1001
+#' set.seed(123)
+#' M.list = vector(mode = "list", length = K)
+#' for(ll in 1:K){
+#'   M.list[[ll]] = matrix(rnorm(p^2), nrow = p)
+#' }
+#' X = linear_simu(n = n, mu = rep(0, p), M.list = M.list, rho = 0.7, err.dist = "pareto")
+#' dim(X)
+#'
+linear_simu = function(n, mu, M.list, rho, K = 1001, err.dist = "t3", ...){
+  p = dim(M.list[[1]])[1]
+  X = matrix(0, nrow = p, ncol = n)
+  if(err.dist == "normal"){
+    epsilon.mat = matrix(rnorm((K+n)*p), nrow = p, ncol = K+n-1)
+    for(i in 1:n){
+      for(k in 1:K){
+        X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
+      }
+    }
+  }else if(err.dist == "pareto"){
+    epsilon.mat = matrix(2*(rpareto((K+n)*p, a = 3, b = 1) - 3/2)/sqrt(3) , nrow = p, ncol = K+n-1)
+    for(i in 1:n){
+      for(k in 1:K){
+        X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
+      }
+    }
+  }else if(err.dist == "lognorm"){
+    epsilon.mat = matrix((exp(rnorm((K+n)*p)) - exp(1/2))/sqrt(exp(2)-exp(1)), nrow = p, ncol = K+n-1)
+    for(i in 1:n){
+      for(k in 1:K){
+        X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
+      }
+    }
+  }else if(startsWith(err.dist, "t") && as.numeric(substring(err.dist, 2)) > 2){
+    df.t = as.numeric(substring(err.dist, 2))
+    epsilon.mat = matrix(rt((K+n)*p, df.t)/sqrt(df.t/(df.t-2)), nrow = p, ncol = K+n-1)
+    for(i in 1:n){
+      for(k in 1:K){
+        X[,i] = X[,i] + rho^(k-1) * M.list[[k]] %*% epsilon.mat[,K+i-1-(k-1)]
+      }
+    }
+  }
+  X = sweep(X, MARGIN = 1, mu, "+")
+  return(X)
+}
+
+
 #' @title Simulating Linear process model with heteroscedastic errors
 #' @description Simulate a p dimensional Linear process model with length n. The setting follows APPENDIX D: SIMULATION STUDY in Zhang&Wu(2017)
 #' @param n         A strictly positive integer corresponding to the length of output series.
@@ -168,7 +230,7 @@ spec_trunc_autocov <- function(X, l, tau, ...){
 #' X = linear_simu(n = n, mu = rep(0, p), M.list = M.list, rho = 0.7, err.dist = "pareto")
 #' dim(X)
 #'
-linear_simu = function(n, mu, M.list, rho, K = 1001, err.dist = "t3", ...){
+linear_simu_heter = function(n, mu, M.list, rho, K = 1001, err.dist = "t3", ...){
   p = dim(M.list[[1]])[1]
   eta.mat = matrix(NA, nrow = p, ncol = K+n-1)
   X = matrix(0, nrow = p, ncol = n)
