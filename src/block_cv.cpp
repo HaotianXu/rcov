@@ -1,28 +1,33 @@
 //block_cv.cpp
 #include <RcppArmadillo.h>
+#include <Rcpp.h>
+#include <algorithm>
+#include <random>
 #include "block_cv.h"
 #include "trunc_mean.h"
 #include "huber_mean.h"
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-IntegerVector sample_int(int B, int E, int S) {
-  IntegerVector pool = seq(B, E);
-  std::random_shuffle(pool.begin(), pool.end());
-  return pool[Range(0, S-1)];
+Rcpp::IntegerVector sample_int(int B, int E, int S) {
+  Rcpp::IntegerVector pool = Rcpp::seq(B, E);
+  std::random_device rd;
+  std::mt19937 g(rd());
+  std::shuffle(pool.begin(), pool.end(), g);
+  return pool[Rcpp::Range(0, S-1)];
 }
 
 // [[Rcpp::export]]
 arma::vec rcpp_block_cv(const arma::vec& x, int S, int h, const arma::vec& tau_vec, unsigned int M_est) {
-  int n = x.size();
-  int m = std::floor(n/S);
-  int l = tau_vec.size();
-  arma::vec err_cv = arma::zeros<arma::vec>(l);
+  const int n = x.size();
+  const int m = n/S;
+  const int l = tau_vec.size();
+  arma::vec err_cv(l, arma::fill::zeros);
   arma::uvec idx = arma::linspace<arma::uvec>(0, n-1, n);
   arma::ivec idx_ending = sample_int(m-1, n-1, S);
-  arma::vec err = arma::zeros<arma::vec>(2*S);
-  arma::vec x_test = arma::zeros<arma::vec>(m);
-  arma::vec diff_test = arma::zeros<arma::vec>(m);
+  arma::vec err(2*S, arma::fill::zeros);
+  arma::vec x_test(m, arma::fill::zeros);
+  arma::vec diff_test(m, arma::fill::zeros);
   arma::uvec idx_train;
   if(M_est == 0){
     for(int j = 0; j < l; ++j){
@@ -37,7 +42,7 @@ arma::vec rcpp_block_cv(const arma::vec& x, int S, int h, const arma::vec& tau_v
         }
         arma::vec x_train = x(idx_train);
         diff_test = x_test - rcpp_trunc_mean(x_train, tau_vec(j));
-        err(i) = sum(abs(diff_test));
+        err(i) = arma::accu(arma::abs(diff_test));
       }
       for(int r = 0; r < S; ++r){
         x_test = x(arma::linspace<arma::uvec>((idx_ending(r)-m+1), idx_ending(r), m));
@@ -50,7 +55,7 @@ arma::vec rcpp_block_cv(const arma::vec& x, int S, int h, const arma::vec& tau_v
         }
         arma::vec x_train = x(idx_train);
         diff_test = x_test - rcpp_trunc_mean(x_train, tau_vec(j));
-        err(r+S) = sum(abs(diff_test));
+        err(r+S) = arma::accu(arma::abs(diff_test));
       }
       err_cv(j) = mean(err);
     }
@@ -67,7 +72,7 @@ arma::vec rcpp_block_cv(const arma::vec& x, int S, int h, const arma::vec& tau_v
         }
         arma::vec x_train = x(idx_train);
         diff_test = x_test - rcpp_huber_mean(x_train, tau_vec(j));
-        err(i) = sum(abs(diff_test));
+        err(i) = arma::accu(arma::abs(diff_test));
       }
       for(int r = 0; r < S; ++r){
         x_test = x(arma::linspace<arma::uvec>((idx_ending(r)-m+1), idx_ending(r), m));
@@ -80,7 +85,7 @@ arma::vec rcpp_block_cv(const arma::vec& x, int S, int h, const arma::vec& tau_v
         }
         arma::vec x_train = x(idx_train);
         diff_test = x_test - rcpp_huber_mean(x_train, tau_vec(j));
-        err(r+S) = sum(abs(diff_test));
+        err(r+S) = arma::accu(arma::abs(diff_test));
       }
       err_cv(j) = mean(err);
     }

@@ -7,15 +7,15 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 arma::vec rcpp_spec_block_cv(const arma::mat& X, int S, int h, int lag, const arma::vec& tau_vec) {
-  int p = X.n_rows;
-  int n = X.n_cols;
-  int ll = tau_vec.size();
-  int m = std::floor((n-lag)/S);
+  const int p = X.n_rows;
+  const int n = X.n_cols;
+  const int ll = tau_vec.size();
+  const int m = std::floor((n-lag)/S);
   double r;
-  arma::mat err = arma::zeros<arma::mat>(ll,2*S);
-  arma::mat op_temp = arma::zeros<arma::mat>(p,p);
-  arma::mat op1 = arma::zeros<arma::mat>(p,p);
-  arma::uvec idx_test = arma::zeros<arma::uvec>(m);
+  arma::mat err(ll,2*S,arma::fill::zeros);
+  arma::mat op_temp(p,p,arma::fill::zeros);
+  arma::mat op1(p,p,arma::fill::zeros);
+  arma::uvec idx_test(m, arma::fill::zeros);
   arma::uvec idx_train;
   arma::ivec idx_ending = sample_int(m-1, n-lag-1, S);
   for(int i = 0; i < S; ++i){

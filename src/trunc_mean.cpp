@@ -4,18 +4,16 @@
 
 // [[Rcpp::export]]
 double rcpp_trunc_mean(const arma::vec& x, double tau) {
-  int n = x.size();
-  double total = 0;
-  double y = 0;
+  const int n = x.size();
+  arma::vec tmp(n);
   for(int i = 0; i < n; ++i){
-    if ((x[i] < tau) & (x[i] > -tau)){
-      y = x[i];
-    }else if(x[i] >= tau){
-      y = tau;
-    }else{
-      y = -tau;
+    if(x[i] >= tau){
+      tmp[i] = tau;
+    } else if(x[i] <= -tau){
+      tmp[i] = -tau;
+    } else {
+      tmp[i] = x[i];
     }
-    total += y;
   }
-  return total/n;
+  return arma::accu(tmp) / n;
 }

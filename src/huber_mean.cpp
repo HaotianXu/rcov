@@ -5,24 +5,22 @@
 // [[Rcpp::export]]
 double rcpp_huber_mean(const arma::vec& x, double tau) {
   double eps = 1e-8;
-  int n = x.size();
-  double mu_new = mean(x);
+  const int n = x.size();
+  double mu_new = arma::mean(x);
   double mu_old = 0;
   arma::vec r;
-  arma::vec a = arma::zeros<arma::vec>(n);
-  arma::vec b = arma::ones<arma::vec>(n);
-  arma::vec c = arma::zeros<arma::vec>(n);
-  while (abs(mu_new-mu_old) > eps){
+  arma::vec b(n, arma::fill::ones);
+  arma::vec c(n, arma::fill::zeros);
+  while (std::abs(mu_new - mu_old) > eps){
     mu_old = mu_new;
     r = x - mu_new;
     for(int i = 0; i < n; ++i){
-      if(abs(r[i]) > tau){
-        a[i] = 1;
-        b[i] = tau/abs(r[i]);
+      if(std::abs(r[i]) > tau){
+        b[i] = tau/std::abs(r[i]);
       }
       c[i] = x[i]*b[i];
     }
-    mu_new = sum(c)/sum(b);
+    mu_new = arma::accu(c)/arma::accu(b);
   }
   return mu_new;
 }

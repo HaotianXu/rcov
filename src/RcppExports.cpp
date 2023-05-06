@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // sample_int
-IntegerVector sample_int(int B, int E, int S);
+Rcpp::IntegerVector sample_int(int B, int E, int S);
 RcppExport SEXP _rcov_sample_int(SEXP BSEXP, SEXP ESEXP, SEXP SSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
