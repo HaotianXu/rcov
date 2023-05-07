@@ -360,15 +360,17 @@ VAR1_simu = function(n, mu, skip = 300, Sigma.mat, rho, err.dist = "t3", ...){
 #' Sigma = diag(1, p)
 #' set.seed(12345)
 #' X = VAR1_simu(n = n, mu = rep(-5, p), skip = 300, Sigma.mat = Sigma, rho = 0.7, err.dist = "pareto")
-#' cv_result = optim.tuning(X, S = 10, h = 1, M_est = FALSE)
+#' cv_result = optim.tuning(X, S = 10, h = 1, length_tau = 10, M_est = FALSE)
 #' tau_cv = median(cv_result)
 #' max(abs(apply(X, 1, FUN = function(x){trunc_mean(x, tau_cv)}) - rep(-5,50)))
 #' max(abs(apply(cbind(cv_result, X), 1, FUN = function(x){trunc_mean(x[-1], x[1])}) - rep(-5,50)))
 #' max(abs(apply(X, 1, FUN = function(x){mean(x)}) - rep(-5,50)))
-optim.tuning = function(X, S, h = 1, length_tau = 5, M_est = FALSE, start.prob = 0.97, ...){
+optim.tuning = function(X, S, h = 1, length_tau = 5, M_est = FALSE, start.prob = 0.95, ...){
   p = dim(X)[1]
   start.trunc = apply(X, MARGIN = 1, FUN = function(x){quantile(abs(x), probs = start.prob)})
+  end.trunc = apply(X, MARGIN = 1, FUN = function(x){quantile(abs(x), probs = 0.99)})
   start.trunc2 = apply(X, MARGIN = 1, FUN = function(x){quantile(abs(x - huber_mean(x, quantile(abs(x), probs = start.prob))), probs = start.prob)})
+  end.trunc2 = apply(X, MARGIN = 1, FUN = function(x){quantile(abs(x - huber_mean(x, quantile(abs(x), probs = start.prob))), probs = 0.99)})
   #if (max.tau <= max(start.trunc, start.trunc2)){
   #  stop(paste0("Choose a max.tau larger than ", max(start.trunc, start.trunc2)))
   #}
@@ -376,12 +378,12 @@ optim.tuning = function(X, S, h = 1, length_tau = 5, M_est = FALSE, start.prob =
   if(M_est == F){
     tau.cv = rep(NA, p)
     for(j in 1:p){
-      tau.cv[j] = get_cv(X[j,], S = S, h = h, start_val = start.trunc[j], end_val = max(abs(X[j,])), nb_iter = 2, length_tau = length_tau, M_est = M_est)
+      tau.cv[j] = get_cv(X[j,], S = S, h = h, start_val = start.trunc[j], end_val = end.trunc[j], nb_iter = 2, length_tau = length_tau, M_est = M_est)
     }
   }else{
     tau.cv = rep(NA, p)
     for(j in 1:p){
-      tau.cv[j] = get_cv(X[j,], S = S, h = h, start_val = start.trunc2[j], end_val = max(abs(X[j,])), nb_iter = 2, length_tau = length_tau, M_est = M_est)
+      tau.cv[j] = get_cv(X[j,], S = S, h = h, start_val = start.trunc2[j], end_val = end.trunc2[j], nb_iter = 2, length_tau = length_tau, M_est = M_est)
     }
   }
   return(tau.cv)
